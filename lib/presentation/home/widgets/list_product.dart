@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:onlineshop_app/core/components/loading.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/constants/formatter.dart';
 import 'package:onlineshop_app/core/constants/images.dart';
 import 'package:onlineshop_app/core/constants/variables.dart';
 import 'package:onlineshop_app/data/models/product_response_model.dart';
-import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:onlineshop_app/presentation/home/widgets/title_content.dart';
 
 import '../../../../core/components/spaces.dart';
