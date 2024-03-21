@@ -1,56 +1,59 @@
 import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlineshop_app/core/components/loading.dart';
+import 'package:onlineshop_app/core/components/spaces.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/constants/images.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
+import 'package:onlineshop_app/presentation/home/widgets/title_content.dart';
 
-class MenuCategories extends StatefulWidget {
-  const MenuCategories({super.key});
-
-  @override
-  State<MenuCategories> createState() => _MenuCategoriesState();
-}
-
-class _MenuCategoriesState extends State<MenuCategories> {
-  @override
-  void initState() {
-    context.read<CategoryBloc>().add(const CategoryEvent.getCategories());
-    super.initState();
-  }
+class MenuCategories extends StatelessWidget {
+  final String title;
+  final VoidCallback onSeeAllTap;
+  const MenuCategories({
+    super.key,
+    required this.title,
+    required this.onSeeAllTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryBloc, CategoryState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          orElse: () {
-            return const LoadingSpinkit();
-          },
-          loaded: (categoryResponse) {
-            return SizedBox(
-              height: 120,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categoryResponse.data!.length,
-                itemBuilder: (context, index) {
-                  final category = categoryResponse.data![index];
-                  return CategoryButton(
-                    imagePath: Images.menuFlashsale,
-                    label: category.name!,
-                    onPressed: () {
-                      log(category.name!);
-                    },
-                  );
-                },
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TitleContent(
+          title: title,
+          onSeeAllTap: onSeeAllTap,
+        ),
+        const SpaceHeight(20.0),
+        BlocBuilder<CategoryBloc, CategoryState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () {
+                return const LoadingSpinkit();
+              },
+              loaded: (categoryResponse) {
+                return Row(
+                  children: [
+                    ...categoryResponse.data!.map(
+                      (category) => Flexible(
+                        child: CategoryButton(
+                          imagePath: Images.menuFlashsale,
+                          label: category.name!,
+                          onPressed: () {
+                            log(category.name!);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
           },
-        );
-      },
+        ),
+      ],
     );
   }
 }
@@ -75,7 +78,7 @@ class CategoryButton extends StatelessWidget {
       ),
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
             ClipRRect(

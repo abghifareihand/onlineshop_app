@@ -4,7 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
 import 'package:onlineshop_app/data/datasources/category_remote_datasource.dart';
+import 'package:onlineshop_app/data/datasources/product_remote_datasource.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
+import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
+import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,8 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CategoryBloc(CategoryRemoteDatasource()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CategoryBloc(CategoryRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(ProductRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ProductCategoryBloc(ProductRemoteDatasource()),
+        ),
+      ],
       child: MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(

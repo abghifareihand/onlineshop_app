@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:onlineshop_app/data/models/category_response_model.dart';
 
@@ -17,7 +17,7 @@ class CategoryRemoteDatasource {
       headers: headers,
     );
 
-    debugPrint('Response Get Categories : ${response.body}');
+    log('Response Get Categories : ${response.body}');
 
     if (response.statusCode == 200) {
       return Right(CategoryResponseModel.fromJson(response.body));

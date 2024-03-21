@@ -18,8 +18,8 @@ class TitleContent extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
+          style: TextStyle(
+            fontWeight: semiBold,
             fontSize: 16.0,
           ),
         ),
