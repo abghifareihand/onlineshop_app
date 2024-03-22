@@ -5,6 +5,7 @@ import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
 import 'package:onlineshop_app/data/datasources/category_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/product_remote_datasource.dart';
+import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
@@ -29,9 +30,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ProductCategoryBloc(ProductRemoteDatasource()),
         ),
+        BlocProvider(
+          create: (context) => CartBloc(),
+        ),
       ],
       child: MaterialApp.router(
-        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           textTheme: GoogleFonts.dmSansTextTheme(

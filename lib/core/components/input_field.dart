@@ -13,13 +13,11 @@ class InputField extends StatefulWidget {
   final String label;
   final TextInputType inputType;
   final TextEditingController? controller;
-  final int? maxLines;
 
   const InputField.text({
     super.key,
     required this.label,
     this.controller,
-    this.maxLines,
     this.inputType = TextInputType.text,
     this.style = InputFieldStyle.text,
   });
@@ -28,7 +26,6 @@ class InputField extends StatefulWidget {
     super.key,
     required this.label,
     this.controller,
-    this.maxLines,
     this.inputType = TextInputType.emailAddress,
     this.style = InputFieldStyle.email,
   });
@@ -37,7 +34,6 @@ class InputField extends StatefulWidget {
     super.key,
     required this.label,
     this.controller,
-    this.maxLines,
     this.inputType = TextInputType.visiblePassword,
     this.style = InputFieldStyle.password,
   });
@@ -46,7 +42,6 @@ class InputField extends StatefulWidget {
     super.key,
     required this.label,
     this.controller,
-    this.maxLines,
     this.inputType = TextInputType.number,
     this.style = InputFieldStyle.number,
   });
@@ -80,7 +75,6 @@ class _InputFieldState extends State<InputField> {
             child: TextFormField(
               controller: widget.controller,
               keyboardType: widget.inputType,
-              maxLines: widget.maxLines,
               textCapitalization: widget.style == InputFieldStyle.text
                   ? TextCapitalization.words
                   : TextCapitalization.none,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class ProductResponseModel {
     final int? code;
     final bool? success;
@@ -154,6 +156,37 @@ class Product {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
     };
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+  
+    return other is Product &&
+      other.id == id &&
+      other.categoryId == categoryId &&
+      other.name == name &&
+      other.description == description &&
+      other.image == image &&
+      other.price == price &&
+      other.stock == stock &&
+      other.isAvailable == isAvailable &&
+      other.createdAt == createdAt &&
+      other.updatedAt == updatedAt;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+      categoryId.hashCode ^
+      name.hashCode ^
+      description.hashCode ^
+      image.hashCode ^
+      price.hashCode ^
+      stock.hashCode ^
+      isAvailable.hashCode ^
+      createdAt.hashCode ^
+      updatedAt.hashCode;
+  }
 }
 
 class Link {

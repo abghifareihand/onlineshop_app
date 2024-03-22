@@ -5,6 +5,7 @@ class Images {
   static const String icOrder = 'assets/icons/order.svg';
   static const String icProfile = 'assets/icons/profile.svg';
   static const String icSearch = 'assets/icons/search.svg';
+  static const String icBag = 'assets/icons/bag.svg';
 
   /// Images
   static const String logoBca = 'assets/images/banks/logo_bca.png';

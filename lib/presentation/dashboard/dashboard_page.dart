@@ -113,14 +113,14 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
-                  Images.icOrder,
+                  Images.icBag,
                   colorFilter: ColorFilter.mode(
                     AppColors.grey.withOpacity(0.5),
                     BlendMode.srcIn,
                   ),
                 ),
                 activeIcon: SvgPicture.asset(
-                  Images.icOrder,
+                  Images.icBag,
                   colorFilter: const ColorFilter.mode(
                     AppColors.primary,
                     BlendMode.srcIn,

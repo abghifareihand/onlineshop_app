@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/constants/formatter.dart';
 import 'package:onlineshop_app/core/constants/images.dart';
 import 'package:onlineshop_app/core/constants/variables.dart';
 import 'package:onlineshop_app/data/models/product_response_model.dart';
+import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/home/widgets/title_content.dart';
 
 import '../../../../core/components/spaces.dart';
@@ -96,16 +98,12 @@ class ProductCard extends StatelessWidget {
                 // ClipRRect(
                 //   borderRadius: BorderRadius.circular(5.0),
                 //   child: Image.network(
-                //     data.image!,
+                //     data.image!.contains('http')
+                //         ? data.image!
+                //         : '${Variables.baseUrl}/${data.image}',
                 //     width: double.infinity,
                 //     height: 120.0,
                 //     fit: BoxFit.cover,
-                //     errorBuilder: (context, error, stackTrace) => Image.asset(
-                //       Images.placeholder,
-                //       width: double.infinity,
-                //       height: 120.0,
-                //       fit: BoxFit.cover,
-                //     ),
                 //   ),
                 // ),
                 const SpaceHeight(14.0),
@@ -135,7 +133,9 @@ class ProductCard extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomRight,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<CartBloc>().add(CartEvent.addToCart(data));
+                },
                 icon: Container(
                   padding: const EdgeInsets.all(4.0),
                   decoration: BoxDecoration(

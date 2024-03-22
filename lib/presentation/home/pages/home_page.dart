@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:onlineshop_app/core/components/loading.dart';
 import 'package:onlineshop_app/core/components/search_input.dart';
 import 'package:onlineshop_app/core/components/spaces.dart';
+import 'package:onlineshop_app/core/constants/colors.dart';
+import 'package:onlineshop_app/core/router/app_router.dart';
+import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
@@ -34,14 +38,69 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Goy Store'),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_none_rounded),
+          /// Cart
+          Stack(
+            children: [
+              InkWell(
+                borderRadius: BorderRadius.circular(50),
+                onTap: () {
+                  context.goNamed(RouteName.cart);
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: const Icon(
+                    Icons.shopping_bag_outlined,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                child: BlocBuilder<CartBloc, CartState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return const SizedBox.shrink();
+                      },
+                      loaded: (products) {
+                        int totalQuantity = 0;
+                        for (var cart in products) {
+                          totalQuantity += cart.quantity;
+                        }
+                        if (totalQuantity == 0) {
+                          return const SizedBox.shrink();
+                        }
+
+                        return CircleAvatar(
+                          radius: 10,
+                          backgroundColor: Colors.red,
+                          child: Text(
+                            totalQuantity.toString(),
+                            style: whiteTextStyle.copyWith(
+                              fontSize: 10,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_bag_outlined),
+
+          /// Notification
+          InkWell(
+            borderRadius: BorderRadius.circular(50),
+            onTap: () {},
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              child: const Icon(
+                Icons.notifications_none_rounded,
+              ),
+            ),
           ),
+          const SpaceWidth(8),
         ],
       ),
       body: ListView(
