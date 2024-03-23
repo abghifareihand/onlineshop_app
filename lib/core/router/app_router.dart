@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:onlineshop_app/presentation/auth/pages/login_page.dart';
 import 'package:onlineshop_app/presentation/auth/pages/splash_page.dart';
 import 'package:onlineshop_app/presentation/cart/pages/cart_page.dart';
+import 'package:onlineshop_app/presentation/cart/pages/checkout_page.dart';
 import 'package:onlineshop_app/presentation/dashboard/dashboard_page.dart';
 part 'route_name.dart';
 
@@ -35,6 +36,13 @@ class AppRouter {
             name: RouteName.cart,
             path: RouteName.cartPath,
             builder: (context, state) => const CartPage(),
+            routes: [
+              GoRoute(
+                name: RouteName.checkout,
+                path: RouteName.checkoutPath,
+                builder: (context, state) => const CheckoutPage(),
+              ),
+            ],
           ),
         ],
       ),

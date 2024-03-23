@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:onlineshop_app/core/components/buttons.dart';
+import 'package:onlineshop_app/core/components/dialog.dart';
 import 'package:onlineshop_app/core/components/input_field.dart';
+import 'package:onlineshop_app/core/components/loading.dart';
 import 'package:onlineshop_app/core/components/spaces.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
+import 'package:onlineshop_app/core/router/app_router.dart';
+import 'package:onlineshop_app/data/datasources/auth_local_datasource.dart';
+import 'package:onlineshop_app/data/datasources/request/login_request_model.dart';
+import 'package:onlineshop_app/presentation/auth/bloc/login/login_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -56,12 +64,50 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SpaceHeight(20),
           Button.filled(
-            onPressed: () {},
-            child: const Text(
-              'Login',
-              style: TextStyle(
-                color: AppColors.white,
-              ),
+            onPressed: () {
+              final loginRequest = LoginRequestModel(
+                email: _emailController.text,
+                password: _passwordController.text,
+              );
+
+              context.read<LoginBloc>().add(LoginEvent.login(loginRequest));
+            },
+            child: BlocConsumer<LoginBloc, LoginState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  orElse: () {},
+                  error: (message) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialog(
+                          title: 'Login Failed',
+                          message: message,
+                        );
+                      },
+                    );
+                  },
+                  loaded: (authResponse) {
+                    AuthLocalDatasource().saveAuthData(authResponse);
+                    context.goNamed(RouteName.root);
+                  },
+                );
+              },
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: AppColors.white,
+                      ),
+                    );
+                  },
+                  loading: () {
+                    return const LoadingSpinkit();
+                  },
+                );
+              },
             ),
           ),
         ],

@@ -3,12 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
+import 'package:onlineshop_app/data/datasources/auth_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/category_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/product_remote_datasource.dart';
+import 'package:onlineshop_app/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:onlineshop_app/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
+import 'package:onlineshop_app/presentation/profile/bloc/logout/logout_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +25,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(AuthRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(AuthRemoteDatasource()),
+        ),
         BlocProvider(
           create: (context) => CategoryBloc(CategoryRemoteDatasource()),
         ),

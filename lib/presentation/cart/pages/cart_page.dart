@@ -5,6 +5,7 @@ import 'package:onlineshop_app/core/components/loading.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/constants/formatter.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
+import 'package:onlineshop_app/data/datasources/auth_local_datasource.dart';
 import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/cart/widgets/cart_tile.dart';
 
@@ -71,8 +72,18 @@ class CartPage extends StatelessWidget {
                   ),
                   const SpaceHeight(40.0),
                   Button.filled(
-                    onPressed: () {
-                      context.goNamed(RouteName.login);
+                    onPressed: () async {
+                      final isAuth = await AuthLocalDatasource().isLogin();
+                      debugPrint('isAuth: $isAuth');
+
+                      if (context.mounted) {
+                        // Memeriksa apakah widget masih ada di pohon widget
+                        if (!isAuth) {
+                          context.pushNamed(RouteName.login);
+                        } else {
+                          context.goNamed(RouteName.checkout);
+                        }
+                      }
                     },
                     child: Text(
                       'Checkout (${products.length})',

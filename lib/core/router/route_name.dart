@@ -20,4 +20,8 @@ class RouteName {
   /// route for page [CartPage]
   static const String cart = 'cart';
   static const String cartPath = 'cart';
+
+  /// route for page [CheckoutPage]
+  static const String checkout = 'checkout';
+  static const String checkoutPath = 'checkout';
 }

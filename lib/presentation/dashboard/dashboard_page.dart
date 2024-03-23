@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:onlineshop_app/core/constants/images.dart';
 import 'package:onlineshop_app/presentation/home/pages/home_page.dart';
+import 'package:onlineshop_app/presentation/profile/pages/profile_page.dart';
 import '../../../core/constants/colors.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -25,9 +26,7 @@ class _DashboardPageState extends State<DashboardPage> {
     const Center(
       child: Text('This Page 3'),
     ),
-    const Center(
-      child: Text('This Page 4 '),
-    ),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
