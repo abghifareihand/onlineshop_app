@@ -28,23 +28,15 @@ class ProfilePage extends StatelessWidget {
                   state.maybeWhen(
                     orElse: () {},
                     error: (message) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return CustomDialog(
-                            title: 'Logout Failed',
-                            message: message,
-                          );
-                        },
-                      );
-                    },
-                    loaded: (message) {
+                      context.goNamed(RouteName.login);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: Colors.green,
+                          backgroundColor: Colors.red,
                           content: Text(message),
                         ),
                       );
+                    },
+                    loaded: (message) {
                       context.goNamed(RouteName.splash);
                     },
                   );

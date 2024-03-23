@@ -3,9 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
+import 'package:onlineshop_app/data/datasources/address_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/auth_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/category_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/product_remote_datasource.dart';
+import 'package:onlineshop_app/data/datasources/rajaongkir_remote_datasource.dart';
+import 'package:onlineshop_app/presentation/address/bloc/add_address/add_address_bloc.dart';
+import 'package:onlineshop_app/presentation/address/bloc/address/address_bloc.dart';
+import 'package:onlineshop_app/presentation/address/bloc/city/city_bloc.dart';
+import 'package:onlineshop_app/presentation/address/bloc/province/province_bloc.dart';
+import 'package:onlineshop_app/presentation/address/bloc/subdistrict/subdistrict_bloc.dart';
 import 'package:onlineshop_app/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:onlineshop_app/presentation/auth/bloc/register/register_bloc.dart';
 import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
@@ -41,7 +48,22 @@ class MyApp extends StatelessWidget {
           create: (context) => ProductBloc(ProductRemoteDatasource()),
         ),
         BlocProvider(
+          create: (context) => AddressBloc(AddressRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => AddAddressBloc(AddressRemoteDatasource()),
+        ),
+        BlocProvider(
           create: (context) => ProductCategoryBloc(ProductRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ProvinceBloc(RajaongkirRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => CityBloc(RajaongkirRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource()),
         ),
         BlocProvider(
           create: (context) => CartBloc(),

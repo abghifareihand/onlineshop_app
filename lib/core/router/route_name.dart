@@ -24,4 +24,16 @@ class RouteName {
   /// route for page [CheckoutPage]
   static const String checkout = 'checkout';
   static const String checkoutPath = 'checkout';
+
+    /// route for page [AddressPage]
+  static const String address = 'address';
+  static const String addressPath = 'address';
+
+  /// route for page [AddAddressPage]
+  static const String addAddress = 'add-address';
+  static const String addAddressPath = 'add-address';
+
+    /// route for page [EditAddressPage]
+  static const String editAddress = 'edit-address';
+  static const String editAddressPath = 'edit-address';
 }

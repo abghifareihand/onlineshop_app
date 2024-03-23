@@ -81,7 +81,7 @@ class CartPage extends StatelessWidget {
                         if (!isAuth) {
                           context.pushNamed(RouteName.login);
                         } else {
-                          context.goNamed(RouteName.checkout);
+                          context.goNamed(RouteName.address);
                         }
                       }
                     },

@@ -45,8 +45,8 @@ class CartTile extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                    child: Image.asset(
-                      Images.placeholder,
+                    child: Image.network(
+                      data.product.image!,
                       width: 68.0,
                       height: 68.0,
                     ),
