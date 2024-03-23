@@ -188,9 +188,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
               final addAddress = AddressRequestModel(
                 name: _nameController.text,
                 fullAddress: _addressController.text,
-                provId: selectedProvince.province,
-                cityId: selectedCity.cityName,
-                districtId: selectedSubdistrict.subdistrictName,
+                provId: selectedProvince.provinceId,
+                cityId: selectedCity.cityId,
+                districtId: selectedSubdistrict.subdistrictId,
                 postalCode: _zipCodeController.text,
                 phone: _phoneController.text,
                 isDefault: true,
