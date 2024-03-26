@@ -19,7 +19,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       final result = await _addressRemoteDatasource.getAddress();
       result.fold(
         (error) => emit(_Error(error)),
-        (data) => emit(_Loaded(data)),
+        (data) => emit(_Loaded(data.data ?? [])),
       );
     });
   }

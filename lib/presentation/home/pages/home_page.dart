@@ -6,8 +6,8 @@ import 'package:onlineshop_app/core/components/search_input.dart';
 import 'package:onlineshop_app/core/components/spaces.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
-import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
+import 'package:onlineshop_app/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
 import 'package:onlineshop_app/presentation/home/widgets/banner_slider.dart';
@@ -56,15 +56,15 @@ class _HomePageState extends State<HomePage> {
               Positioned(
                 top: 0,
                 right: 0,
-                child: BlocBuilder<CartBloc, CartState>(
+                child: BlocBuilder<CheckoutBloc, CheckoutState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () {
                         return const SizedBox.shrink();
                       },
-                      loaded: (products) {
+                      loaded: (checkout, _, __, ____, _____, ______) {
                         int totalQuantity = 0;
-                        for (var cart in products) {
+                        for (var cart in checkout) {
                           totalQuantity += cart.quantity;
                         }
                         if (totalQuantity == 0) {

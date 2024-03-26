@@ -5,7 +5,7 @@ import 'package:onlineshop_app/core/constants/formatter.dart';
 import 'package:onlineshop_app/core/constants/images.dart';
 import 'package:onlineshop_app/core/constants/variables.dart';
 import 'package:onlineshop_app/data/models/product_response_model.dart';
-import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
+import 'package:onlineshop_app/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:onlineshop_app/presentation/home/widgets/title_content.dart';
 
 import '../../../../core/components/spaces.dart';
@@ -134,7 +134,7 @@ class ProductCard extends StatelessWidget {
               alignment: Alignment.bottomRight,
               child: IconButton(
                 onPressed: () {
-                  context.read<CartBloc>().add(CartEvent.addToCart(data));
+                  context.read<CheckoutBloc>().add(CheckoutEvent.addItem(data));
                 },
                 icon: Container(
                   padding: const EdgeInsets.all(4.0),

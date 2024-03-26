@@ -6,6 +6,7 @@ import 'package:onlineshop_app/core/router/app_router.dart';
 import 'package:onlineshop_app/data/datasources/address_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/auth_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/category_remote_datasource.dart';
+import 'package:onlineshop_app/data/datasources/order_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/product_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/rajaongkir_remote_datasource.dart';
 import 'package:onlineshop_app/presentation/address/bloc/add_address/add_address_bloc.dart';
@@ -15,10 +16,12 @@ import 'package:onlineshop_app/presentation/address/bloc/province/province_bloc.
 import 'package:onlineshop_app/presentation/address/bloc/subdistrict/subdistrict_bloc.dart';
 import 'package:onlineshop_app/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:onlineshop_app/presentation/auth/bloc/register/register_bloc.dart';
-import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/category/category_bloc.dart';
+import 'package:onlineshop_app/presentation/home/bloc/checkout/checkout_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart';
 import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
+import 'package:onlineshop_app/presentation/order/bloc/cost/cost_bloc.dart';
+import 'package:onlineshop_app/presentation/order/bloc/order/order_bloc.dart';
 import 'package:onlineshop_app/presentation/profile/bloc/logout/logout_bloc.dart';
 
 void main() {
@@ -66,7 +69,13 @@ class MyApp extends StatelessWidget {
           create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource()),
         ),
         BlocProvider(
-          create: (context) => CartBloc(),
+          create: (context) => CostBloc(RajaongkirRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => CheckoutBloc(),
+        ),
+        BlocProvider(
+          create: (context) => OrderBloc(OrderRemoteDatasource()),
         ),
       ],
       child: MaterialApp.router(

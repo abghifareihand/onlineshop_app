@@ -17,3 +17,18 @@ class LoadingSpinkit extends StatelessWidget {
     );
   }
 }
+
+class LoadingSpinkitColor extends StatelessWidget {
+  const LoadingSpinkitColor({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: SpinKitFadingCircle(
+        color: AppColors.primary,
+      ),
+    );
+  }
+}

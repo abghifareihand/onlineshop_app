@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:onlineshop_app/core/components/dialog.dart';
 import 'package:onlineshop_app/core/components/loading.dart';
-import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
 import 'package:onlineshop_app/data/datasources/request/address_request_model.dart';
 import 'package:onlineshop_app/data/models/city_response_model.dart';
@@ -97,6 +95,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         selectedProvince = value!;
                         context.read<CityBloc>().add(
                             CityEvent.getCity(selectedProvince.provinceId!));
+                        debugPrint('${selectedProvince.provinceId}');
                       });
                     },
                   );
@@ -183,58 +182,47 @@ class _AddAddressPageState extends State<AddAddressPage> {
             label: 'No Handphone',
           ),
           const SpaceHeight(24.0),
-          Button.filled(
-            onPressed: () {
-              final addAddress = AddressRequestModel(
-                name: _nameController.text,
-                fullAddress: _addressController.text,
-                provId: selectedProvince.provinceId,
-                cityId: selectedCity.cityId,
-                districtId: selectedSubdistrict.subdistrictId,
-                postalCode: _zipCodeController.text,
-                phone: _phoneController.text,
-                isDefault: true,
+          BlocConsumer<AddAddressBloc, AddAddressState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                loaded: (message) {
+                  context.goNamed(
+                    RouteName.address,
+                  );
+                },
               );
-              context
-                  .read<AddAddressBloc>()
-                  .add(AddAddressEvent.addAddress(addAddress));
             },
-            child: BlocConsumer<AddAddressBloc, AddAddressState>(
-              listener: (context, state) {
-                state.maybeWhen(
-                  orElse: () {},
-                  loaded: (message) {
-                    context.goNamed(RouteName.root);
-                  },
-                  error: (message) {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomDialog(
-                          title: 'Add Address Failed',
-                          message: message,
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-              builder: (context, state) {
-                return state.maybeWhen(
-                  orElse: () {
-                    return const Text(
-                      'Tambah Alamat',
-                      style: TextStyle(
-                        color: AppColors.white,
-                      ),
-                    );
-                  },
-                  loading: () {
-                    return const LoadingSpinkit();
-                  },
-                );
-              },
-            ),
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () {
+                  return Button.filled(
+                    onPressed: () {
+                      context.read<AddAddressBloc>().add(
+                            AddAddressEvent.addAddress(
+                              AddressRequestModel(
+                                name: _nameController.text,
+                                fullAddress: _addressController.text,
+                                provId: selectedProvince.provinceId!,
+                                cityId: selectedCity.cityId!,
+                                districtId: selectedSubdistrict.subdistrictId!,
+                                postalCode: _zipCodeController.text,
+                                phone: _phoneController.text,
+                                isDefault: false,
+                              ),
+                            ),
+                          );
+                    },
+                    label: 'Tambah Alamat',
+                  );
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              );
+            },
           ),
         ],
       ),

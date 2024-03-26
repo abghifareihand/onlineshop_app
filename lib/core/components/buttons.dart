@@ -2,44 +2,51 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-enum ButtonStyle {
-  filled,
-  outlined,
-}
+
+enum ButtonStyle { filled, outlined }
 
 class Button extends StatelessWidget {
   const Button.filled({
     super.key,
     required this.onPressed,
-    required this.child,
+    required this.label,
     this.style = ButtonStyle.filled,
     this.color = AppColors.primary,
+    this.textColor = Colors.white,
     this.width = double.infinity,
-    this.height = 48.0,
-    this.borderRadius = 12.0,
+    this.height = 50.0,
+    this.borderRadius = 16.0,
     this.icon,
+    this.disabled = false,
+    this.fontSize = 16.0,
   });
 
   const Button.outlined({
     super.key,
     required this.onPressed,
-    required this.child,
+    required this.label,
     this.style = ButtonStyle.outlined,
     this.color = AppColors.white,
+    this.textColor = AppColors.black,
     this.width = double.infinity,
-    this.height = 48.0,
-    this.borderRadius = 12.0,
+    this.height = 50.0,
+    this.borderRadius = 16.0,
     this.icon,
+    this.disabled = false,
+    this.fontSize = 16.0,
   });
 
   final Function() onPressed;
-  final Widget child;
+  final String label;
   final ButtonStyle style;
   final Color color;
+  final Color textColor;
   final double width;
   final double height;
   final double borderRadius;
   final Widget? icon;
+  final bool disabled;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +55,7 @@ class Button extends StatelessWidget {
       width: width,
       child: style == ButtonStyle.filled
           ? ElevatedButton(
-              onPressed: onPressed,
+              onPressed: disabled ? null : onPressed,
               style: ElevatedButton.styleFrom(
                 backgroundColor: color,
                 shape: RoundedRectangleBorder(
@@ -60,17 +67,22 @@ class Button extends StatelessWidget {
                 children: [
                   icon ?? const SizedBox.shrink(),
                   if (icon != null) const SizedBox(width: 10.0),
-                  child,
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             )
           : OutlinedButton(
-              onPressed: onPressed,
+              onPressed: disabled ? null : onPressed,
               style: OutlinedButton.styleFrom(
                 backgroundColor: color,
-                side: const BorderSide(
-                  color: AppColors.primary,
-                ),
+                side: const BorderSide(color: AppColors.primary),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
@@ -80,7 +92,14 @@ class Button extends StatelessWidget {
                 children: [
                   icon ?? const SizedBox.shrink(),
                   if (icon != null) const SizedBox(width: 10.0),
-                  child
+                  Text(
+                    label,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ],
               ),
             ),

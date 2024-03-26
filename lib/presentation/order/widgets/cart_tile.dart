@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:onlineshop_app/core/components/spaces.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/constants/formatter.dart';
-import 'package:onlineshop_app/core/constants/images.dart';
-import 'package:onlineshop_app/presentation/cart/bloc/cart/cart_bloc.dart';
-import 'package:onlineshop_app/presentation/cart/models/product_quantity.dart';
+import 'package:onlineshop_app/core/constants/variables.dart';
+import 'package:onlineshop_app/presentation/home/models/product_quantity.dart';
+
+import '../../../core/components/spaces.dart';
+import '../../home/bloc/checkout/checkout_bloc.dart';
+import '../models/cart_model.dart';
 
 class CartTile extends StatelessWidget {
   final ProductQuantity data;
@@ -46,22 +47,14 @@ class CartTile extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                     child: Image.network(
-                      data.product.image!,
+                      data.product.image!.contains('http')
+                          ? data.product.image!
+                          : '${Variables.baseUrl}${data.product.image}',
                       width: 68.0,
                       height: 68.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(10.0),
-                  //   child: Image.network(
-                  //     data.product.image!.contains('http')
-                  //         ? data.product.image!
-                  //         : '${Variables.baseUrl}/${data.product.image}',
-                  //     width: double.infinity,
-                  //     height: 120.0,
-                  //     fit: BoxFit.cover,
-                  //   ),
-                  // ),
                   const SpaceWidth(14.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,42 +85,39 @@ class CartTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  /// button min
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     child: InkWell(
                       onTap: () {
                         context
-                            .read<CartBloc>()
-                            .add(CartEvent.removeToCart(data.product));
+                            .read<CheckoutBloc>()
+                            .add(CheckoutEvent.removeItem(data.product));
                       },
-                      child: ColoredBox(
+                      child: const ColoredBox(
                         color: AppColors.primary,
                         child: Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: EdgeInsets.all(4.0),
                           child: Icon(
-                            data.quantity == 1 ? Icons.delete : Icons.remove,
+                            Icons.remove,
                             color: AppColors.white,
                           ),
                         ),
                       ),
                     ),
                   ),
-
-                  /// quantity
-                  SizedBox(
-                    width: 32,
-                    child: Center(child: Text('${data.quantity}')),
+                  const SpaceWidth(4.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('${data.quantity}'),
                   ),
-
-                  /// button plus
+                  const SpaceWidth(4.0),
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     child: InkWell(
                       onTap: () {
                         context
-                            .read<CartBloc>()
-                            .add(CartEvent.addToCart(data.product));
+                            .read<CheckoutBloc>()
+                            .add(CheckoutEvent.addItem(data.product));
                       },
                       child: const ColoredBox(
                         color: AppColors.primary,

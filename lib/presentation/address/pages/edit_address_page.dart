@@ -78,16 +78,11 @@ class EditAddressPage extends StatelessWidget {
             label: 'No Handphone',
           ),
           const SpaceHeight(24.0),
-          Button.filled(
+           Button.filled(
             onPressed: () {
               context.pop();
             },
-           child: const Text(
-              'Update Address',
-              style: TextStyle(
-                color: AppColors.white,
-              ),
-            ),
+            label: 'Perbarui Alamat',
           ),
         ],
       ),

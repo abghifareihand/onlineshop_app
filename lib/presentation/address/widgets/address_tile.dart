@@ -3,7 +3,6 @@ import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/data/models/address_response_model.dart';
 
 import '../../../core/components/spaces.dart';
-import '../models/address_model.dart';
 
 class AddressTile extends StatelessWidget {
   final bool isSelected;

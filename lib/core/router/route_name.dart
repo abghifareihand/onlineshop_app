@@ -25,7 +25,7 @@ class RouteName {
   static const String checkout = 'checkout';
   static const String checkoutPath = 'checkout';
 
-    /// route for page [AddressPage]
+  /// route for page [AddressPage]
   static const String address = 'address';
   static const String addressPath = 'address';
 
@@ -33,7 +33,31 @@ class RouteName {
   static const String addAddress = 'add-address';
   static const String addAddressPath = 'add-address';
 
-    /// route for page [EditAddressPage]
+  /// route for page [EditAddressPage]
   static const String editAddress = 'edit-address';
   static const String editAddressPath = 'edit-address';
+
+  /// route for page [OrderDetailPage]
+  static const String orderDetail = 'order_detail';
+  static const String orderDetailPath = 'order_detail';
+
+  /// route for page [PaymentDetailPage]
+  static const String paymentDetail = 'payment_detail';
+  static const String paymentDetailPath = 'payment_detail';
+
+  /// route for page [TrackingOrderPage]
+  static const String trackingOrder = 'tracking_order';
+  static const String trackingOrderPath = 'tracking_order';
+
+  /// route for page [ShippingDetailPage]
+  static const String shippingDetail = 'shipping_detail';
+  static const String shippingDetailPath = 'shipping_detail';
+
+  /// route for page [PaymentWaitingPage]
+  static const String paymentWaiting = 'payment_waiting';
+  static const String paymentWaitingPath = 'payment_waiting';
+
+  /// route for page [OrderPage]
+  static const String orderList = 'order_list';
+  static const String orderListPath = 'order_list';
 }

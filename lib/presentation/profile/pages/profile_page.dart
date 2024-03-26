@@ -19,44 +19,41 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Button.filled(
-              onPressed: () {
-                context.read<LogoutBloc>().add(const LogoutEvent.logout());
+            BlocConsumer<LogoutBloc, LogoutState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  orElse: () {},
+                  error: (message) {
+                    context.goNamed(RouteName.login);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text(message),
+                      ),
+                    );
+                  },
+                  loaded: (message) {
+                    context.goNamed(RouteName.splash);
+                  },
+                );
               },
-              child: BlocConsumer<LogoutBloc, LogoutState>(
-                listener: (context, state) {
-                  state.maybeWhen(
-                    orElse: () {},
-                    error: (message) {
-                      context.goNamed(RouteName.login);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text(message),
-                        ),
-                      );
-                    },
-                    loaded: (message) {
-                      context.goNamed(RouteName.splash);
-                    },
-                  );
-                },
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    orElse: () {
-                      return const Text(
-                        'Logout',
-                        style: TextStyle(
-                          color: AppColors.white,
-                        ),
-                      );
-                    },
-                    loading: () {
-                      return const LoadingSpinkit();
-                    },
-                  );
-                },
-              ),
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return Button.filled(
+                      onPressed: () {
+                        context
+                            .read<LogoutBloc>()
+                            .add(const LogoutEvent.logout());
+                      },
+                      label: 'Logout',
+                    );
+                  },
+                  loading: () {
+                    return const LoadingSpinkitColor();
+                  },
+                );
+              },
             ),
           ],
         ),

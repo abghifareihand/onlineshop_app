@@ -6,9 +6,11 @@ import 'package:onlineshop_app/presentation/address/pages/address_page.dart';
 import 'package:onlineshop_app/presentation/address/pages/edit_address_page.dart';
 import 'package:onlineshop_app/presentation/auth/pages/login_page.dart';
 import 'package:onlineshop_app/presentation/auth/pages/splash_page.dart';
-import 'package:onlineshop_app/presentation/cart/pages/cart_page.dart';
-import 'package:onlineshop_app/presentation/cart/pages/checkout_page.dart';
 import 'package:onlineshop_app/presentation/dashboard/dashboard_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/cart_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/order_detail_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/payment_detail_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/payment_waiting_page.dart';
 part 'route_name.dart';
 
 class AppRouter {
@@ -42,9 +44,23 @@ class AppRouter {
             builder: (context, state) => const CartPage(),
             routes: [
               GoRoute(
-                name: RouteName.checkout,
-                path: RouteName.checkoutPath,
-                builder: (context, state) => const CheckoutPage(),
+                name: RouteName.orderDetail,
+                path: RouteName.orderDetailPath,
+                builder: (context, state) => const OrderDetailPage(),
+                routes: [
+                  GoRoute(
+                    name: RouteName.paymentDetail,
+                    path: RouteName.paymentDetailPath,
+                    builder: (context, state) => const PaymentDetailPage(),
+                    routes: [
+                      GoRoute(
+                        name: RouteName.paymentWaiting,
+                        path: RouteName.paymentWaitingPath,
+                        builder: (context, state) => const PaymentWaitingPage(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
