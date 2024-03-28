@@ -22,6 +22,7 @@ import 'package:onlineshop_app/presentation/home/bloc/product/product_bloc.dart'
 import 'package:onlineshop_app/presentation/home/bloc/product_category/product_category_bloc.dart';
 import 'package:onlineshop_app/presentation/order/bloc/cost/cost_bloc.dart';
 import 'package:onlineshop_app/presentation/order/bloc/order/order_bloc.dart';
+import 'package:onlineshop_app/presentation/order/bloc/status_order/status_order_bloc.dart';
 import 'package:onlineshop_app/presentation/profile/bloc/logout/logout_bloc.dart';
 
 void main() {
@@ -76,6 +77,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => OrderBloc(OrderRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => StatusOrderBloc(OrderRemoteDatasource()),
         ),
       ],
       child: MaterialApp.router(

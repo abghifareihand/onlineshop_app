@@ -33,4 +33,26 @@ class OrderRemoteDatasource {
       return Left(errorMessage);
     }
   }
+
+  Future<Either<String, String>> checkPaymentStatus(int orderId) async {
+    final token = await AuthLocalDatasource().getToken();
+    final headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    final response = await http.get(
+      Uri.parse('${Variables.baseUrl}/api/order/status/$orderId'),
+      headers: headers,
+    );
+
+    log('Response Status Order : ${response.body}');
+
+    if (response.statusCode == 200) {
+      final success = jsonDecode(response.body)['status'];
+      return Right(success);
+    } else {
+      return const Left('Error');
+    }
+  }
 }

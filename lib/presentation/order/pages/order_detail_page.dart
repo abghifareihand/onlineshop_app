@@ -176,13 +176,23 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ],
           ),
           const SpaceHeight(20.0),
-          Button.filled(
-            onPressed: () {
-              context.goNamed(
-                RouteName.paymentDetail,
+          BlocBuilder<CheckoutBloc, CheckoutState>(
+            builder: (context, state) {
+              final shippingCost = state.maybeWhen(
+                orElse: () => 0,
+                loaded: (_, __, ___, ____, shippingCost, ______) =>
+                    shippingCost,
+              );
+              return Button.filled(
+                disabled: shippingCost == 0,
+                onPressed: () {
+                  context.goNamed(
+                    RouteName.paymentDetail,
+                  );
+                },
+                label: 'Pilih Pembayaran',
               );
             },
-            label: 'Pilih Pembayaran',
           ),
         ],
       ),
@@ -316,49 +326,49 @@ class _SelectShippingState extends State<_SelectShipping> {
   }
 }
 
-class _ShippingSelected extends StatelessWidget {
-  const _ShippingSelected();
+// class _ShippingSelected extends StatelessWidget {
+//   const _ShippingSelected();
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20.0),
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.stroke),
-          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-        ),
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  'Reguler',
-                  style: TextStyle(fontSize: 16),
-                ),
-                Spacer(),
-                Text(
-                  'Edit',
-                  style: TextStyle(fontSize: 16),
-                ),
-                SpaceWidth(4.0),
-                Icon(Icons.chevron_right),
-              ],
-            ),
-            SpaceHeight(12.0),
-            Text(
-              'JNE (Rp. 25.000)',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            Text('Estimasi tiba 2 Januari 2024'),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {},
+//       child: Container(
+//         padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20.0),
+//         decoration: BoxDecoration(
+//           border: Border.all(color: AppColors.stroke),
+//           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+//         ),
+//         child: const Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Row(
+//               children: [
+//                 Text(
+//                   'Reguler',
+//                   style: TextStyle(fontSize: 16),
+//                 ),
+//                 Spacer(),
+//                 Text(
+//                   'Edit',
+//                   style: TextStyle(fontSize: 16),
+//                 ),
+//                 SpaceWidth(4.0),
+//                 Icon(Icons.chevron_right),
+//               ],
+//             ),
+//             SpaceHeight(12.0),
+//             Text(
+//               'JNE (Rp. 25.000)',
+//               style: TextStyle(
+//                 fontSize: 16,
+//                 fontWeight: FontWeight.w700,
+//               ),
+//             ),
+//             Text('Estimasi tiba 2 Januari 2024'),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

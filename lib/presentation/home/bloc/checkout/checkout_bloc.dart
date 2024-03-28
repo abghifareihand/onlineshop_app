@@ -1,9 +1,7 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:onlineshop_app/data/models/product_response_model.dart';
 import 'package:onlineshop_app/presentation/home/models/product_quantity.dart';
-
 
 part 'checkout_event.dart';
 part 'checkout_state.dart';
@@ -107,6 +105,10 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           event.shippingService,
           event.shippingCost,
           currentState.paymentMethod));
+    });
+
+    on<_Started>((event, emit) async {
+      emit(const _Loaded([], 0, '', '', 0, ''));
     });
   }
 }

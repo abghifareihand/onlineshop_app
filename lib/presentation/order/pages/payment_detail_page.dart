@@ -357,6 +357,7 @@ class PaymentDetailPage extends StatelessWidget {
                 loaded: (orderResponseModel) {
                   context.pushNamed(
                     RouteName.paymentWaiting,
+                    extra: orderResponseModel.data!.id
                   );
                 },
                 error: (message) {
