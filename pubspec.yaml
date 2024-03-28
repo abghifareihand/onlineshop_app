@@ -31,9 +31,12 @@ dependencies:
   carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.6
   dartz: ^0.10.1
+  firebase_core: ^2.27.2
+  firebase_messaging: ^14.7.21
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.4
+  flutter_local_notifications: ^17.0.0
   flutter_slidable: ^3.1.0
   flutter_spinkit: ^5.2.0
   flutter_svg: ^2.0.10+1

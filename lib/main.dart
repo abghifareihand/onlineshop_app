@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,9 +7,11 @@ import 'package:onlineshop_app/core/router/app_router.dart';
 import 'package:onlineshop_app/data/datasources/address_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/auth_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/category_remote_datasource.dart';
+import 'package:onlineshop_app/data/datasources/firebase_message_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/order_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/product_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/rajaongkir_remote_datasource.dart';
+import 'package:onlineshop_app/firebase_options.dart';
 import 'package:onlineshop_app/presentation/address/bloc/add_address/add_address_bloc.dart';
 import 'package:onlineshop_app/presentation/address/bloc/address/address_bloc.dart';
 import 'package:onlineshop_app/presentation/address/bloc/city/city_bloc.dart';
@@ -25,7 +28,12 @@ import 'package:onlineshop_app/presentation/order/bloc/order/order_bloc.dart';
 import 'package:onlineshop_app/presentation/order/bloc/status_order/status_order_bloc.dart';
 import 'package:onlineshop_app/presentation/profile/bloc/logout/logout_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+   await FirebaseMessageRemoteDatasource().initNotification();
   runApp(const MyApp());
 }
 

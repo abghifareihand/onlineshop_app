@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "90198978855",
+    "project_id": "fic12-onlineshop-8cfdd",
+    "storage_bucket": "fic12-onlineshop-8cfdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90198978855:android:99b311483a0c722939f902",
+        "android_client_info": {
+          "package_name": "com.example.onlineshop_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRGwd_M-6mR8cVHWW6afN9xqeWusd4AAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
