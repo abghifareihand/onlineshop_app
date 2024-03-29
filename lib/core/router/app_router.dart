@@ -8,9 +8,12 @@ import 'package:onlineshop_app/presentation/auth/pages/login_page.dart';
 import 'package:onlineshop_app/presentation/auth/pages/splash_page.dart';
 import 'package:onlineshop_app/presentation/dashboard/dashboard_page.dart';
 import 'package:onlineshop_app/presentation/order/pages/cart_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/history_order_page.dart';
 import 'package:onlineshop_app/presentation/order/pages/order_detail_page.dart';
 import 'package:onlineshop_app/presentation/order/pages/payment_detail_page.dart';
 import 'package:onlineshop_app/presentation/order/pages/payment_waiting_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/shipping_detail_page.dart';
+import 'package:onlineshop_app/presentation/order/pages/tracking_order_page.dart';
 part 'route_name.dart';
 
 class AppRouter {
@@ -38,6 +41,33 @@ class AppRouter {
           );
         },
         routes: [
+          GoRoute(
+            name: RouteName.orderList,
+            path: RouteName.orderListPath,
+            builder: (context, state) => const HistoryOrderPage(),
+            routes: [
+              GoRoute(
+                name: RouteName.trackingOrder,
+                path: RouteName.trackingOrderPath,
+                builder: (context, state) {
+                  final args = state.extra as int;
+                  return TrackingOrderPage(orderId: args);
+                },
+                routes: [
+                  GoRoute(
+                    name: RouteName.shippingDetail,
+                    path: RouteName.shippingDetailPath,
+                    builder: (context, state) {
+                      final args = state.extra as String;
+                      return ShippingDetailPage(
+                        resi: args
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
           GoRoute(
             name: RouteName.cart,
             path: RouteName.cartPath,

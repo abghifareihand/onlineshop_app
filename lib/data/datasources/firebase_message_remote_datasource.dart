@@ -49,7 +49,7 @@ class FirebaseMessageRemoteDatasource {
 
     /// cek user login
     if (await AuthLocalDatasource().isLogin()) {
-      AuthRemoteDatasource().updateFcmToken(fcmToken ?? '');
+      AuthRemoteDatasource().updateFcmToken(fcmToken!);
     }
 
     FirebaseMessaging.instance.getInitialMessage();

@@ -6,6 +6,7 @@ import 'package:onlineshop_app/data/datasources/cost_response_model.dart';
 import 'package:onlineshop_app/data/models/city_response_model.dart';
 import 'package:onlineshop_app/data/models/province_response_model.dart';
 import 'package:onlineshop_app/data/models/subdistrict_response_model.dart';
+import 'package:onlineshop_app/data/models/tracking_response_model.dart';
 
 import '../../core/constants/variables.dart';
 
@@ -72,7 +73,7 @@ class RajaongkirRemoteDatasource {
   }
 
   Future<Either<String, CostResponseModel>> getCost(
-      String origin, String destination,String courier) async {
+      String origin, String destination, String courier) async {
     final headers = {
       'key': Variables.rajaongkirApiKey,
     };
@@ -92,6 +93,30 @@ class RajaongkirRemoteDatasource {
 
     if (response.statusCode == 200) {
       return Right(CostResponseModel.fromJson(response.body));
+    } else {
+      final errorMessage =
+          jsonDecode(response.body)['rajaongkir']['status']['description'];
+      return Left(errorMessage);
+    }
+  }
+
+  Future<Either<String, TrackingResponseModel>> getWaybill(
+      String waybill, String courier) async {
+    final headers = {
+      'key': Variables.rajaongkirApiKey,
+    };
+    final response = await http.post(
+        Uri.parse('https://pro.rajaongkir.com/api/waybill'),
+        headers: headers,
+        body: {
+          'waybill': waybill,
+          'courier': courier,
+        });
+
+    log('Response Get Cost : ${response.body}');
+
+    if (response.statusCode == 200) {
+      return Right(TrackingResponseModel.fromJson(response.body));
     } else {
       final errorMessage =
           jsonDecode(response.body)['rajaongkir']['status']['description'];

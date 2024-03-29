@@ -91,7 +91,7 @@ class AuthRemoteDatasource {
       Uri.parse('${Variables.baseUrl}/api/fcm-token'),
       headers: headers,
       body: jsonEncode({
-        'fcm_token': fcmToken,
+        'fcm_id': fcmToken,
       }),
     );
 

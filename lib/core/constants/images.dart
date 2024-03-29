@@ -6,6 +6,10 @@ class Images {
   static const String icProfile = 'assets/icons/profile.svg';
   static const String icSearch = 'assets/icons/search.svg';
   static const String icBag = 'assets/icons/bag.svg';
+  static const String icBagcart = 'assets/icons/bagcart.svg';
+  static const String icUser = 'assets/icons/user.svg';
+  static const String icCreditcard = 'assets/icons/creditcard.svg';
+  static const String icLocation = 'assets/icons/location.svg';
 
   /// Images
   static const String logoBca = 'assets/images/banks/logo_bca.png';

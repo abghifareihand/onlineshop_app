@@ -7,6 +7,7 @@ import 'package:onlineshop_app/core/components/spaces.dart';
 import 'package:onlineshop_app/core/constants/colors.dart';
 import 'package:onlineshop_app/core/router/app_router.dart';
 import 'package:onlineshop_app/data/datasources/auth_local_datasource.dart';
+import 'package:onlineshop_app/data/datasources/firebase_message_remote_datasource.dart';
 import 'package:onlineshop_app/data/datasources/request/login_request_model.dart';
 import 'package:onlineshop_app/presentation/auth/bloc/login/login_bloc.dart';
 
@@ -64,11 +65,14 @@ class _LoginPageState extends State<LoginPage> {
             listener: (context, state) {
               state.maybeWhen(
                 orElse: () {},
-                loaded: (data) {
+                loaded: (data) async {
                   AuthLocalDatasource().saveAuthData(data);
-                  context.goNamed(
-                    RouteName.root,
-                  );
+                  await FirebaseMessageRemoteDatasource().initNotification();
+                  if (context.mounted) {
+                    context.goNamed(
+                      RouteName.root,
+                    );
+                  }
                 },
                 error: (message) {
                   ScaffoldMessenger.of(context).showSnackBar(
